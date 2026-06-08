@@ -1,0 +1,43 @@
+name: Bollettino Meteo Giornaliero
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # ogni giorno alle 04:00 UTC
+  workflow_dispatch:        # run manuale dal browser (utile per testare)
+
+jobs:
+  bollettino:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Restore
+        run: dotnet restore WeatherDigest/WeatherDigest.csproj
+
+      - name: Build
+        run: dotnet build WeatherDigest/WeatherDigest.csproj --no-restore -c Release
+
+      - name: Esegui bollettino
+        run: dotnet run --project WeatherDigest/WeatherDigest.csproj -c Release --no-build
+        env:
+          Weather__LocationName: ${{ secrets.WEATHER_LOCATION_NAME }}
+          Weather__Latitude: ${{ secrets.WEATHER_LATITUDE }}
+          Weather__Longitude: ${{ secrets.WEATHER_LONGITUDE }}
+          Weather__ForecastDays: ${{ secrets.WEATHER_FORECAST_DAYS }}
+          Weather__TimeZone: ${{ secrets.WEATHER_TIMEZONE }}
+          Weather__Models__0: ${{ secrets.WEATHER_MODEL_0 }}
+          Weather__Models__1: ${{ secrets.WEATHER_MODEL_1 }}
+          Weather__Models__2: ${{ secrets.WEATHER_MODEL_2 }}
+          Email__Host: ${{ secrets.EMAIL_HOST }}
+          Email__Port: ${{ secrets.EMAIL_PORT }}
+          Email__UseStartTls: ${{ secrets.EMAIL_USE_STARTTLS }}
+          Email__User: ${{ secrets.EMAIL_USER }}
+          Email__Password: ${{ secrets.EMAIL_PASSWORD }}
+          Email__From: ${{ secrets.EMAIL_FROM }}
+          Email__To: ${{ secrets.EMAIL_TO }}
