@@ -1,6 +1,152 @@
+
+
+# ─── Build Output (all projects) ──────────────────────────
 bin/
 obj/
+dist/
+build/
+coverage/
 local.settings.json
 appsettings.local.json
-*.user
 .vs/
+
+# ─── Logs & Temporary Files ───────────────────────────────
+logs/
+*.log
+*.pyc
+*.swp
+.history
+.svn/
+
+# ─── OS Generated Files ───────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── IDEs & Editors ───────────────────────────────────────
+.vscode/
+.idea/
+.atom/
+*.code-workspace
+*.iml
+*.ipr
+*.iws
+.sublime-workspace
+
+# ─── .NET / APIs ──────────────────────────────────────────
+api/**/*.user
+api/**/*.suo
+api/.vs/
+api/**/appsettings.*.json
+!api/**/appsettings.Development.json
+
+*.sln
+*.sln.*
+*.csproj.user
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.sln.ide
+*.sln.ide.*
+*.sln.cache
+*.sln.ide.cache
+
+# ─── Node / JavaScript / TypeScript ───────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+yarn.lock
+
+# ─── Angular / Web ────────────────────────────────────────
+/tmp
+/out-tsc
+.sass-cache/
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
+
+# ─── Flutter / Dart ───────────────────────────────────────
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+pubspec.lock
+**/doc/api/
+.build/
+.buildlog/
+.swiftpm/
+migrate_working_dir/
+
+# ─── Android / Gradle ─────────────────────────────────────
+gradle-wrapper.jar
+/.gradle
+/captures/
+gradlew
+gradlew.bat
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+key.properties
+**/*.keystore
+**/*.jks
+
+# ─── iOS / Xcode ──────────────────────────────────────────
+**/dgph
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+**/*sync/
+.sconsign.dblite
+.tags*
+**/.vagrant/
+**/DerivedData/
+Icon?
+**/Pods/
+**/.symlinks/
+profile
+xcuserdata
+**/.generated/
+Flutter/App.framework
+Flutter/Flutter.framework
+Flutter/Flutter.podspec
+Flutter/Generated.xcconfig
+Flutter/ephemeral/
+Flutter/app.flx
+Flutter/app.zip
+Flutter/flutter_assets/
+Flutter/flutter_export_environment.sh
+ServiceDefinitions.json
+Runner/GeneratedPluginRegistrant.*
+
+# ─── E2E Test Results ─────────────────────────────────────
+test-results/
+test-results-*.xml
+
+# ─── Environment & Secrets ───────────────────────────────
+.env
+.env.*
+*.env
+
+# ─── IDE & AI Assistant Cache ─────────────────────────────
+.claude/
+.claude*
+*claude*
+.copilot/
+.copilot*
+*copilot*
+.cache/
+.vscode-server/
+.cursor/
+
+# ─── Other Temporary ──────────────────────────────────────
+*.bak
+*.tmp
+~*
+.~*
+
