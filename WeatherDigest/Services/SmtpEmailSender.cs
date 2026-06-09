@@ -31,6 +31,9 @@ public sealed class SmtpEmailSender(IOptions<EmailOptions> options) : IEmailSend
             ? SecureSocketOptions.StartTls
             : SecureSocketOptions.SslOnConnect;
 
+        Console.WriteLine($"Connecting to SMTP server {_options.Host}:{_options.Port} with secure option {secureOption}");
+        Console.WriteLine($"Authenticating with user {_options.User}");
+
         await client.ConnectAsync(_options.Host, _options.Port, secureOption, cancellationToken);
         await client.AuthenticateAsync(_options.User, _options.Password, cancellationToken);
         await client.SendAsync(message, cancellationToken);
