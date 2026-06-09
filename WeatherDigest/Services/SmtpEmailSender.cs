@@ -1,12 +1,14 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using WeatherDigest.Options;
 
 namespace WeatherDigest.Services;
 
-public sealed class SmtpEmailSender(IOptions<EmailOptions> options) : IEmailSender
+public sealed class SmtpEmailSender(IOptions<EmailOptions> options,
+ILogger<SmtpEmailSender> logger) : IEmailSender
 {
     private readonly EmailOptions _options = options.Value;
 
@@ -31,8 +33,8 @@ public sealed class SmtpEmailSender(IOptions<EmailOptions> options) : IEmailSend
             ? SecureSocketOptions.StartTls
             : SecureSocketOptions.SslOnConnect;
 
-        Console.WriteLine($"Connecting to SMTP server {_options.Host}:{_options.Port} with secure option {secureOption}");
-        Console.WriteLine($"Authenticating with user {_options.User}");
+        logger.LogInformation($"Connecting to SMTP server {_options.Host}:{_options.Port} with secure option {secureOption}");
+        logger.LogInformation($"Authenticating with user {_options.User}");
 
         await client.ConnectAsync(_options.Host, _options.Port, secureOption, cancellationToken);
         await client.AuthenticateAsync(_options.User, _options.Password, cancellationToken);
