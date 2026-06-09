@@ -5,6 +5,9 @@ on:
     - cron: '0 4 * * *'   # ogni giorno alle 04:00 UTC
   workflow_dispatch:        # run manuale dal browser (utile per testare)
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   bollettino:
     runs-on: ubuntu-latest
