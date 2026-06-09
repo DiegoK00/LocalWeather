@@ -38,6 +38,7 @@ public sealed class OpenMeteoWeatherService(
         if (byHour.Count == 0)
             throw new InvalidOperationException("Nessun modello ha restituito dati orari.");
 
+        // Prima media: per ogni ora, media tra i modelli
         var hours = byHour
             .Where(kvp => kvp.Value.Temps.Count > 0)
             .Select(kvp => new HourlyAverage(
@@ -47,7 +48,26 @@ public sealed class OpenMeteoWeatherService(
                 SourceCount: kvp.Value.Temps.Count))
             .ToList();
 
-        var days = hours
+        // Seconda media: raggruppa in fasce da 3h centrate (01-02-03 → 02:00, 04-05-06 → 05:00, ...)
+        // La fascia è identificata dall'ora centrale: ((ora - 1) / 3) * 3 + 2
+        // L'ora 00:00 appartiene all'ultima fascia del giorno precedente (22-23-00 → 23:00)
+        var slots = hours
+            .GroupBy(h =>
+            {
+                var slotHour = h.Hour.Hour == 0
+                    ? h.Hour.Date.AddHours(-1)                          // 00:00 → 23:00 del giorno prima
+                    : h.Hour.Date.AddHours(((h.Hour.Hour - 1) / 3) * 3 + 2);
+                return slotHour;
+            })
+            .OrderBy(g => g.Key)
+            .Select(g => new HourlyAverage(
+                Hour: g.Key,
+                TemperatureC: Math.Round(g.Average(h => h.TemperatureC), 1),
+                PrecipitationMm: Math.Round(g.Sum(h => h.PrecipitationMm), 2),
+                SourceCount: (int)Math.Round(g.Average(h => h.SourceCount))))
+            .ToList();
+
+        var days = slots
             .GroupBy(h => DateOnly.FromDateTime(h.Hour))
             .OrderBy(g => g.Key)
             .Select(g => new DailySummary(

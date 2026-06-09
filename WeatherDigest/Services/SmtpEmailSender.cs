@@ -33,7 +33,7 @@ ILogger<SmtpEmailSender> logger) : IEmailSender
             ? SecureSocketOptions.StartTls
             : SecureSocketOptions.SslOnConnect;
 
-        logger.LogInformation($"Connecting to SMTP server {_options.Host}:{_options.Port} with secure option {secureOption}");
+        logger.LogInformation($"AAAConnecting to SMTP server {_options.Host}:{_options.Port} with secure option {secureOption}");
         logger.LogInformation($"Authenticating with user {_options.User}");
 
         await client.ConnectAsync(_options.Host, _options.Port, secureOption, cancellationToken);

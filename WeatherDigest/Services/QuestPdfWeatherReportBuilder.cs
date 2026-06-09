@@ -73,7 +73,7 @@ public sealed class QuestPdfWeatherReportBuilder : IWeatherReportPdfBuilder
 
                 table.Header(header =>
                 {
-                    HeaderCell(header, "Ora");
+                    HeaderCell(header, "Fascia (3h)");
                     HeaderCell(header, "Temp (°C)");
                     HeaderCell(header, "Pioggia (mm)");
                     HeaderCell(header, "N. modelli");
