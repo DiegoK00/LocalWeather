@@ -7,7 +7,8 @@ località e lo invia via email come PDF. Schedulata tramite **GitHub Actions** (
 
 1. Interroga **Open-Meteo** una volta per ciascun modello configurato (default: ECMWF, GFS, ICON).
 2. Calcola la **media ora per ora** di temperatura (°C) e precipitazioni (mm) tra i modelli.
-3. Genera un **PDF** con QuestPDF (una sezione per giorno: min/max, totale pioggia, tabella oraria).
+3. Raggruppa le ore in **fasce da 3h centrate** (01-02-03 → 02:00, 04-05-06 → 05:00, … 22-23-00 → 23:00): temperatura = media, precipitazioni = somma.
+4. Genera un **PDF** con QuestPDF (una sezione per giorno: min/max, totale pioggia, tabella per fascia).
 4. Invia il PDF via **SMTP** (MailKit) all'indirizzo configurato.
 
 Mediare più modelli Open-Meteo sostituisce lo scraping di siti consumer (iLMeteo/3BMeteo/AccuWeather):
