@@ -1,6 +1,7 @@
 name: Bollettino Meteo Giornaliero
 
 on:
+  schedule:
   workflow_dispatch:        # run manuale dal browser (utile per testare)
 
 env:
